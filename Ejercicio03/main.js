@@ -43,8 +43,9 @@ const marcarRealizada = (id) => {
 
 const pintarNotas = () => {
     const notasContainer = document.getElementById('notasContainer');
-    notasContainer.innerHTML = ''; 
+    notasContainer.innerHTML = '';
 
+  
     if (notas.length === 0) {
         document.getElementById('noNotas').innerHTML = 'NO HAY NOTAS PARA MOSTRAR';
         return;
@@ -55,10 +56,12 @@ const pintarNotas = () => {
     const textoBusqueda = document.getElementById('buscarTexto').value.toLowerCase();
     const soloRealizadas = document.getElementById('checkcompletado').checked;
 
+   
     const notasFiltradas = notas
-        .filter(nota => (nota.realizada === soloRealizadas))
+        .filter(nota => (soloRealizadas ? nota.realizada : true)) 
         .filter(nota => nota.titulo.toLowerCase().includes(textoBusqueda) || nota.texto.toLowerCase().includes(textoBusqueda));
 
+   
     notasFiltradas.forEach(nota => {
         const notaDiv = document.createElement('div');
         notaDiv.className = 'col-12 col-sm-6 col-md-5 col-lg-3'; 
@@ -66,14 +69,14 @@ const pintarNotas = () => {
         notaDiv.innerHTML = `
             <div class="note-card">
                 <div class="note-header">
+                    <input type="checkbox" ${nota.realizada ? 'checked' : ''} onchange="marcarRealizada(${nota.id})"> 
                     <h5>${nota.titulo}</h5>
-                    <button class="btn btn-secondary" onclick="borrarNota(${nota.id})">Borrar Nota</button>
                 </div>
                 <div class="note-body">
                     <p>${nota.texto}</p>
                 </div>
                 <div class="checkbox-container">
-                    <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? 'checked' : ''}> Marcada
+                    <button class="btn btn-secondary" onclick="borrarNota(${nota.id})">Borrar Nota</button>
                 </div>
             </div>
         `;
