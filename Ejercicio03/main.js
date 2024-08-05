@@ -1,6 +1,18 @@
 let idGlobal = 0;
-let notas = [];
-
+let notas = [
+    {
+        id: ++idGlobal,
+        titulo: 'Sacar la basura',
+        texto: 'Si no la saco mi mama me va a pegar',
+        realizada: true
+    },
+    {
+        id: ++idGlobal,
+        titulo: 'Bañarme',
+        texto: 'A las 10:30 am',
+        realizada: false
+    }
+];
 
 function guardarNota() {
     const titulo = document.getElementById('nota_titulo').value.trim();
@@ -25,12 +37,10 @@ function guardarNota() {
     pintarNotas();
 }
 
-
 function borrarNota(id) {
     notas = notas.filter(nota => nota.id !== id);
     pintarNotas();
 }
-
 
 function marcarRealizada(id) {
     const nota = notas.find(nota => nota.id === id);
@@ -39,7 +49,6 @@ function marcarRealizada(id) {
         pintarNotas();
     }
 }
-
 
 function pintarNotas() {
     const notasContainer = document.getElementById('notasContainer');
@@ -56,12 +65,12 @@ function pintarNotas() {
     const soloRealizadas = document.getElementById('checkcompletado').checked;
 
     const notasFiltradas = notas
-        .filter(nota => (soloRealizadas ? nota.realizada : true)) 
-        .filter(nota => nota.titulo.toLowerCase().includes(textoBusqueda) || nota.texto.toLowerCase().includes(textoBusqueda)); // Filtra las notas según el texto de búsqueda
+        .filter(nota => (soloRealizadas ? nota.realizada : true))
+        .filter(nota => nota.titulo.toLowerCase().includes(textoBusqueda) || nota.texto.toLowerCase().includes(textoBusqueda));
 
     notasFiltradas.forEach(nota => {
         const notaDiv = document.createElement('div');
-        notaDiv.className = 'col-12 col-sm-6 col-md-5 col-lg-3 d-flex flex: 1 1 100%'; 
+        notaDiv.className = 'col-12 col-sm-6 col-md-5 col-lg-3 d-flex'; 
 
         notaDiv.innerHTML = `
             <div class="note-card">
@@ -82,7 +91,6 @@ function pintarNotas() {
     });
 }
 
-
 document.getElementById('guardarNota').addEventListener('click', guardarNota);
 document.getElementById('limpiarCampos').addEventListener('click', () => {
     document.getElementById('nota_titulo').value = '';
@@ -90,6 +98,3 @@ document.getElementById('limpiarCampos').addEventListener('click', () => {
 });
 document.getElementById('buscarTexto').addEventListener('input', pintarNotas);
 document.getElementById('checkcompletado').addEventListener('change', pintarNotas);
-
-
-
