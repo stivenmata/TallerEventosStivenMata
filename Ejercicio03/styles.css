@@ -11,7 +11,10 @@ body {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 200px; 
+    box-sizing: border-box;
 }
+
 
 h1 {
     color: #333;
@@ -62,6 +65,7 @@ h1 {
     justify-content: space-between;
     width: 100%;
     margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
 .note-header {
